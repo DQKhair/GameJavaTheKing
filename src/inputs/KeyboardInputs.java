@@ -53,6 +53,7 @@ public class KeyboardInputs implements KeyListener{
             case KeyEvent.VK_A:
             case KeyEvent.VK_D:
                 gamePanel.setMoving(false);
+                break;
             default:
                 throw new AssertionError();
         }

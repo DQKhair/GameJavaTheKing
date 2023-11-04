@@ -57,13 +57,18 @@ public class GamePanel extends JPanel{
 //        subImg = img.getSubimage(1*64, 4*40, 64, 40);
 //        g.drawImage(img.getSubimage(0, 0, 64, 40), 0, 0,128,80, null);
             
-            updateAnimationTick();
-            setAnimation();
-            updatePos();
+            
             g.drawImage(animations[playerAction][animationIndex], (int)xDelta, (int)yDelta,128,80, null);
         
     }
 
+    public void updateGame()
+    {
+        updateAnimationTick();
+            setAnimation();
+            updatePos();
+    }
+        
     public void setDirection(int direction)
     {
         this.playerDir = direction;
@@ -142,4 +147,6 @@ public class GamePanel extends JPanel{
             }
         }
     }
+    
+
 }
