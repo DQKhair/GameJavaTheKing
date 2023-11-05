@@ -4,6 +4,10 @@
  */
 package theking;
 
+import Levels.LevelManager;
+import entities.Player;
+import java.awt.Graphics;
+
 /**
  *
  * @author jondd
@@ -15,12 +19,29 @@ public class Game implements Runnable{
     private final int FPS_SET = 120;
     private final int UPS_SET = 200;
     
+    private LevelManager levelManager;
+    
+    public final static int TILES_DEFAULT_SIZE = 32;
+    public final static float SCALE = 2.0f;
+    public final static int TILES_IN_WIDTH = 26;
+    public final static int TILES_IN_HEIGHT = 14;
+    public final static int TILES_SIZE = (int)(TILES_DEFAULT_SIZE * SCALE);
+    public final static int GAME_WIDTH = TILES_SIZE * TILES_IN_WIDTH;
+    public final static int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;
+    
+    private Player player;
+    
     public Game()
     {
-         gamePanel = new GamePanel();
+        initClasses();
+        
+        gamePanel = new GamePanel(this);
         gameWindow = new GameWindow(gamePanel);
         gamePanel.setFocusable(true);
         gamePanel.requestFocus();
+        
+        
+
         startGameLoop();
     }
     
@@ -77,7 +98,30 @@ public class Game implements Runnable{
         }
     }
 
-    private void update() {
-        gamePanel.updateGame();
+    private void initClasses() {
+        player= new Player(200, 200,(int) (64 * SCALE), (int) (40 * SCALE));
+        levelManager = new LevelManager(this);
+    }
+    
+    public void update() {
+        player.update();
+        levelManager.update();
+    }
+    
+    public void render(Graphics g)
+    {
+        levelManager.draw(g);
+        player.render(g);
+    }
+
+
+    
+    public Player getPlayer()
+    {
+        return player;
+    }
+    public void windowFocusLost()
+    {
+        player.resetDirBoolean();
     }
 }
